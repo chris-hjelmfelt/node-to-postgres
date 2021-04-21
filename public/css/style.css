@@ -1,0 +1,39 @@
+body {
+  margin-top: 10px;
+  background-color: rgb(216, 216, 216);
+}
+
+h6 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.well {
+  background-color: whitesmoke;
+  border: 1px solid grey;
+  width: 80%;  
+  margin-bottom: 10px;  
+  padding-left: 10px;
+  padding-right: 5px;
+}
+
+.collapse {
+  padding-bottom: 10px;
+}
+
+.btn-sm {
+  vertical-align: top;
+  padding:0.1rem 0.5rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+.btn-check:focus + .btn, .btn:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0rem rgba(135, 174, 233, 0.25);
+}
+
+.btn-block {
+  background-color: rgb(142, 166, 197);
+  line-height: 1;
+  width: 10rem;
+}

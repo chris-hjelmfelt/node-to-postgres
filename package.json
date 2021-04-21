@@ -1,0 +1,20 @@
+{
+  "name": "nodejs-test",
+  "version": "1.0.0",
+  "description": "creating a recipe app as a test of node.js working with a postgres database.",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "consolidate": "*",
+    "dust": "*",
+    "dustjs-helpers": "*",
+    "dustjs-linkedin": "*",
+    "express": "4.17.1",
+    "pg": "^8.5.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chris H",
+  "license": "ISC"
+}

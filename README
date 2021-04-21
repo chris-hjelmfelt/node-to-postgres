@@ -1,0 +1,5 @@
+*** NODE to POSTGRES ***
+using express, dust, and bootstrap
+
+run
+> node app.js
