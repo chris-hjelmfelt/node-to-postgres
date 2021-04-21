@@ -20,11 +20,21 @@ app.use(express.urlencoded({ extended: false })); // <--- middleware configurati
 
  // Routes
 app.get('/', function(req, res) {   
-    res.render('index');
-});
-
-
-// Server 
-app.listen(3000, function() {
-    console.log("Server started on route 3000");
+    // Query postgres
+    const client = new Client({
+        user: 'postgres',
+        host: 'localhost',
+        database: 'ui_testing',
+        password: 'atg123',
+        port: 5432
+    });
+    client.connect()
+    client.query('SELECT * from test2', function(err, result){
+        if(err){
+            console.log(err);
+        } else{
+            res.render('index', {recipes: result.rows});
+        }        
+        client.end()
+    });            
 });

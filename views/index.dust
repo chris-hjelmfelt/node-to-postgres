@@ -1,5 +1,21 @@
 {>"layout" /}
 
 {<body}
-    <h3>Hello</h3>
+    <h4>Message Display</h4>
+      {#recipes}
+        <div class="well">
+            <h6>{name} <button class="btn btn-primary btn-sm float-end" data-bs-toggle="collapse" href="#recipe_{id}" role="button" aria-expanded="false" aria-controls="recipe_{id}">
+                <i class="bi bi-caret-down" style="margin:0;"></i>
+            </button></h6>
+            <div class="collapse" id="recipe_{id}">
+                <p><strong>Date: </strong> {date} </p>
+                <p><strong>Directions: </strong> <br />{directions} </p>
+                <br />
+
+            </div>        
+        </div>
+    {/recipes}
+
+
+    
 {/body}
