@@ -38,3 +38,28 @@ app.get('/', function(req, res) {
         client.end()
     });            
 });
+
+app.post('/add', function(req, res) {
+    // Query postgres
+    const client = new Client({
+        user: 'postgres',
+        host: 'localhost',
+        database: 'ui_testing',
+        password: 'atg123',
+        port: 5432,
+    });
+    client.connect()
+    client.query("INSERT INTO test2(name, date, directions) VALUES($1, $2, $3)", 
+    [req.body.name, req.body.date, req.body.directions], function(err, result){
+        if(err){
+            console.log(err);
+        } else { 
+            res.redirect('/');
+        }
+        client.end()
+    });
+});
+// Server 
+app.listen(3000, function() {
+    console.log("Server started on route 3000");
+});
