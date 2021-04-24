@@ -107,3 +107,15 @@ app.post('/edit', function(req, res){
 app.listen(3000, function() {
     console.log("Server started on route 3000");
 });
+
+// Look at a file in another directory and display a config value found inside it 
+fs.readFile('C:\\Users\\Christine.Hjelmfelt\\Documents\\Code\\JEMS JS Interface\\config.txt', 'utf8', function(err, data){ 
+    if(err){
+        console.log(err);
+    }else{
+        var thing = data;
+        var place = thing.search("space")
+        var space = thing.slice(place + 6, place + 7)
+        console.log("Space Available: " + space + " Gb");
+    }        
+});
