@@ -81,6 +81,27 @@ app.delete('/delete/:id', function(req, res){
     });        
 });
 
+app.post('/edit', function(req, res){
+    // Query postgres
+    const client = new Client({
+        user: 'postgres',
+        host: 'localhost',
+        database: 'ui_testing',
+        password: 'atg123',
+        port: 5432,
+    });
+    client.connect()
+        host: 'localhost',
+        client.query("UPDATE test2 SET name=$2, date=$3, directions=$4 WHERE id = $1", 
+        [req.body.id, req.body.name, req.body.date, req.body.directions], function(err, result){
+        if(err){
+            console.log(err);
+        } else {
+            res.redirect('/');
+        }            
+        client.end()
+    });      
+});
 
 // Server 
 app.listen(3000, function() {

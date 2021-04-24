@@ -16,3 +16,11 @@ $(document).ready(function() {
           });
       }
   });
+
+  $('button.btn.edit-recipe').click(function(){
+      $('#edit-form-id').val($(this).data('id'));
+      $('#edit-form-name').val($(this).data('name'));
+      $('#edit-form-date').val($(this).data('date'));
+      $('#edit-form-directions').val($(this).data('directions'));        
+  });
+});
