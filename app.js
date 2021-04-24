@@ -2,7 +2,8 @@ var express = require('express'),
     path = require('path'),
     cons = require('consolidate'),
     dust = require('dustjs-helpers'),
-    {Client} = require('pg');
+    {Client} = require('pg'),
+    fs = require('fs');  
 var app = express();
 
 
@@ -59,6 +60,28 @@ app.post('/add', function(req, res) {
         client.end()
     });
 });
+
+app.delete('/delete/:id', function(req, res){
+    // Query postgres
+    const client = new Client({
+        user: 'postgres',
+        host: 'localhost',
+        database: 'ui_testing',
+        password: 'atg123',
+        port: 5432,
+    });
+    client.connect()
+    client.query("DELETE FROM test2 WHERE id = $1", [req.params.id], function(err, result){
+        if(err){
+            console.log(err);
+        } else {
+            res.sendStatus(200);
+        }            
+        client.end()
+    });        
+});
+
+
 // Server 
 app.listen(3000, function() {
     console.log("Server started on route 3000");
