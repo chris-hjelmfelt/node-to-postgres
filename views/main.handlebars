@@ -1,0 +1,92 @@
+<h4>Message Display</h4>
+<button type="button" class="btn btn-primary btn-block" data-bs-toggle="modal" data-bs-target="#formModal">Add Item</button><br /><br />
+
+{{#each recipes}}
+    <div class="well">
+        <h6>{{this.name}} <button class="btn btn-primary btn-sm float-end" data-bs-toggle="collapse" href="#recipe_{{this.id}}" role="button" aria-expanded="false" aria-controls="recipe_{{this.id}}">
+            <i class="bi bi-caret-down" style="margin:0;"></i>
+        </button></h6>
+        <div class="collapse" id="recipe_{{this.id}}">
+            <p><strong>Date: </strong> {{this.date}} </p>
+            <p><strong>Directions: </strong> <br />{{this.directions}} </p>
+            <br />
+
+            <button class="btn btn-outline-primary btn-sm edit-recipe"
+            data-bs-toggle="modal" data-bs-target="#editFormModal" data-id="{{this.id}}"
+            data-name="{{this.name}}" data-date="{{this.date}}" data-directions="{{this.directions}}">
+            Edit
+            </button>&nbsp;
+
+            <button class="btn btn-outline-danger btn-sm delete-recipe" data-id="{{this.id}}">
+            Delete
+            </button>
+        </div>        
+    </div>
+{{/each}}
+
+
+<!-- Add Form Modal -->
+<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="/add">
+                <div class="modal-header">   
+                    <h5 class="modal-title" id="myModalLabel">Add Item</h5>                     
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                        
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" name="name" />
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <textarea class="form-control" name="date"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Directions</label>
+                        <textarea class="form-control" name="directions"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Save" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Edit Form Modal -->
+<div class="modal fade" id="editFormModal" tabindex="-1" aria-labelledby="editFormModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="/edit">
+            <input type="hidden" id="edit-form-id" name="id" />
+                <div class="modal-header">   
+                    <h5 class="modal-title" id="myModalLabel">Add Item</h5>                     
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                        
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" name="name" id="edit-form-name" />
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <textarea class="form-control" name="date" id="edit-form-date"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Directions</label>
+                        <textarea class="form-control" name="directions" id="edit-form-directions"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Save" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

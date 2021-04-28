@@ -1,25 +1,22 @@
 var express = require('express'),
     path = require('path'),
-    cons = require('consolidate'),
-    dust = require('dustjs-helpers'),
+    handlebars = require('express-handlebars'),
     {Client} = require('pg'),
     fs = require('fs');  
+
 var app = express();
 
-
-// Assign Dust Engine to .dust files
-app.engine('dust', cons.dust);
-
-// Set .dust as the default extension
-app.set('view engine', 'dust');
-app.set('views', __dirname + '/views');
+//Sets our app to use the handlebars engine
+app.engine('handlebars', handlebars());
+app.set('view engine', 'handlebars');
+//app.engine('handlebars', handlebars({layoutsDir: __dirname + '/views/layouts'}));
 
 // Set public folder
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({ extended: false })); // <--- middleware configuration
+app.use(express.urlencoded({extended: true})); // <--- middleware configuration
 
 
- // Routes
+// Routes
 app.get('/', function(req, res) {   
     // Query postgres
     const client = new Client({
@@ -34,11 +31,12 @@ app.get('/', function(req, res) {
         if(err){
             console.log(err);
         } else{
-            res.render('index', {recipes: result.rows});
+            res.render('main', {layout : 'index', recipes: result.rows});
         }        
         client.end()
     });            
 });
+
 
 app.post('/add', function(req, res) {
     // Query postgres
@@ -102,6 +100,7 @@ app.post('/edit', function(req, res){
         client.end()
     });      
 });
+
 
 // Server 
 app.listen(3000, function() {
