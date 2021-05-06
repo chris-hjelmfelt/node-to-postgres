@@ -1,7 +1,8 @@
-var express = require('express'),
+const express = require('express'),
     path = require('path'),
     handlebars = require('express-handlebars'),
     {Client} = require('pg'),
+    fetch = require("node-fetch"),
     fs = require('fs');  
 
 var app = express();
@@ -15,9 +16,20 @@ app.set('view engine', 'handlebars');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({extended: true})); // <--- middleware configuration
 
+var jsondata = "";
+const myURL = 'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json';  // fun
+const myURL2 = 'https://jsonplaceholder.typicode.com/users/1/todos';  // latin placeholder4
+
+async function getJson(url) {
+    let response = await fetch(url);
+    let data = await response.json();
+    return data;
+}
+
+
 
 // Routes
-app.get('/', function(req, res) {   
+app.get('/', async function(req, res) {   
     // Query postgres
     const client = new Client({
         user: 'postgres',
@@ -31,7 +43,7 @@ app.get('/', function(req, res) {
         if(err){
             console.log(err);
         } else{
-            res.render('main', {layout : 'index', recipes: result.rows});
+            res.render('main', {layout : 'index', recipes: result.rows, team: jsondata});
         }        
         client.end()
     });            
@@ -98,23 +110,41 @@ app.post('/edit', function(req, res){
             res.redirect('/');
         }            
         client.end()
-    });      
+    });  
+    
 });
-
+   
 
 // Server 
 app.listen(3000, function() {
     console.log("Server started on route 3000");
 });
 
+        
+async function main() {
+    // get json data
+    jsondata = await getJson(myURL2);
+    
+    //console.log(jsondata[1].title);
+
+    // I was trying to use this for json display (I still need to learn helpers and partials):
+    // this is the syntax for regular handlebars - you need the express-handlebars version
+    // which involves the layouts>partial folder and a partials template in there
+    // also somehow pass the jsondata over there - I think you can pass it through the main 
+    // layout since you call your partial inside it
+    //var partialSrc = jsondata.squadName;
+}
+main();
+
+
 // Look at a file in another directory and display a config value found inside it 
-fs.readFile('C:\\Users\\Christine.Hjelmfelt\\Documents\\Code\\JEMS JS Interface\\config.txt', 'utf8', function(err, data){ 
-    if(err){
+fs.readFile('C:\\Users\\Chris\\Documents\\config.txt', 'utf8', function(err, data){ 
+    if(err){ 
         console.log(err);
     }else{
         var thing = data;
-        var place = thing.search("space")
-        var space = thing.slice(place + 6, place + 7)
+        var place = thing.search("space");
+        var space = thing.slice(place + 6, place + 7);
         console.log("Space Available: " + space + " Gb");
     }        
 });

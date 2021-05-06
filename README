@@ -1,5 +1,5 @@
 *** NODE to POSTGRES ***
-using express, dust, and bootstrap
+using nodejs, express, handlebars, postgres, bootstrap, and a json api
 
 run
-> node app.js
+> nodemon .
