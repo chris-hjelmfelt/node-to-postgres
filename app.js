@@ -19,6 +19,7 @@ app.use(express.urlencoded({extended: true})); // <--- middleware configuration
 var jsondata = "";
 const myURL = 'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json';  // fun
 const myURL2 = 'https://jsonplaceholder.typicode.com/users/1/todos';  // latin placeholder4
+var space = 0;
 
 async function getJson(url) {
     let response = await fetch(url);
@@ -43,7 +44,7 @@ app.get('/', async function(req, res) {
         if(err){
             console.log(err);
         } else{
-            res.render('main', {layout : 'index', recipes: result.rows, team: jsondata});
+            res.render('main', {layout : 'index', recipes: result.rows, team: jsondata, space: space});
         }        
         client.end()
     });            
@@ -139,12 +140,12 @@ main();
 
 // Look at a file in another directory and display a config value found inside it 
 fs.readFile('C:\\Users\\Chris\\Documents\\config.txt', 'utf8', function(err, data){ 
-    if(err){ 
+    if(err){
         console.log(err);
     }else{
         var thing = data;
-        var place = thing.search("space");
-        var space = thing.slice(place + 6, place + 7);
+        var place = thing.search("space")
+        space = thing.slice(place + 6, place + 7)
         console.log("Space Available: " + space + " Gb");
     }        
 });

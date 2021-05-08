@@ -1,7 +1,7 @@
 {
-  "name": "nodejs-test",
+  "name": "node-to-postgres",
   "version": "1.0.0",
-  "description": "creating a recipe app as a test of node.js working with a postgres database.",
+  "description": "A test of node.js and express working with a postgreSQL database.",
   "main": "app.js",
   "dependencies": {
     "express": "4.17.1",
